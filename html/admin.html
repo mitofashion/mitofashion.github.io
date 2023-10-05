@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>owner dashboard</title>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css">
+</head>
+
+<body>
+    <div id="rootDiv">
+        <div id="firstColumn" class="column">
+            <div id="profileDiv">
+                <h6>owner dashboard</h6>
+                <img src="../images/shoes.png">
+                <b>NYAKO</b>
+            </div>
+            <div id="loggingArea">
+                <div>
+                    <!--Area for logging-->
+                    Area for logging useful information...<br>
+                    ============================
+                </div>
+            </div>
+        </div>
+        <div id="secondColumn" class="column">
+            <div class="tabsHeader">
+                <div id="ordersTabButton" class="tabButton firstTabButton">Orders</div>
+                <div id="productsTabButton" class="tabButton">Products</div>
+                <div id="subscribersTabButton" class="tabButton lastTabButton">Subscribers</div>
+            </div>
+
+            <!--The tabs are down here-->
+            <div id="ordersTab" class="tab">
+                <div class="scrollableDiv">
+                </div>
+            </div>
+
+            <div id="productsTab" class="tab">
+                <div class="scrollableDiv">
+                    <!--MAximum of six per row-->
+                    <!--add icon-->
+                    <div id="addButtonContainer">
+                        <img src="../images/add.png">
+                        <!--Invisible input-->
+                        <input accept="image/*" type="file" multiple required>
+                    </div>
+
+                    <div id="oldProductsContainer" class="productsContainer">
+                    </div>
+                    <div></div>
+                    <div id="newProductsContainer" class="productsContainer">
+                    </div>
+                </div>
+            </div>
+
+            <div id="subscribersTab" class="tab">
+                <div class="scrollableDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="animationDiv"> <div><b class="animTextWhite">LOADING   </b> <b class="animTextWhite">&gt;</b> <b class="animTextWhite">&gt;</b> <b class="animTextWhite">&gt;</b> <b class="animTextWhite">&gt;</b> </did> </div>
+</body>
+<script type="text/javascript" src="../scripts/cookies-manager.js"></script>
+<script type="module" src="../scripts/admin.js"></script>
+
+</html>

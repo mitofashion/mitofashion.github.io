@@ -1,0 +1,381 @@
+body, html {
+    background-color: #000;
+    /*Preventing illegal scrollbar styling whatever...*/
+    scrollbar-face-color: ThreeDFace !important;
+    scrollbar-shadow-color: ThreeDDarkShadow !important;
+    scrollbar-highlight-color: ThreeDHighlight !important;
+    scrollbar-3dlight-color: ThreeDLightShadow !important;
+    scrollbar-darkshadow-color: ThreeDDarkShadow !important;
+    scrollbar-track-color: Scrollbar !important;
+    scrollbar-arrow-color: ButtonText !important;
+    /*Hiding the scrollbars on the html and body*/
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/*Hiding the scrollbars on the html and body*/
+.body, html::-webkit-scrollbar {
+	display: none;
+}
+
+#rootDiv {
+    display: table;
+    white-space: nowrap;
+    vertical-align: top;
+}
+
+#firstColumn {
+    width: 30vw;
+}
+
+#secondColumn {
+    width: 69vw;
+}
+
+.column {
+    height: 95vh;
+    display: inline-block;
+    border: solid 1px #f0f;
+}
+
+#profileDiv {
+    display: table;
+    border: solid 1px #f0f;
+    background-color: #e0b0ff40;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2vh;
+    margin-top: 4vh;
+    border-radius: 2vh;
+}
+
+#profileDiv h6 {
+    color: #f0f;
+    font-size: 4vh;
+    padding: 0vh;
+    margin: 2vh;
+}
+
+#profileDiv img {
+    height: 10vh;
+    width: 10vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2vh;
+}
+
+#profileDiv b {
+    font-size: 3.5vh;
+    color: #ee79d1;
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loggingArea {
+    display: table;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#loggingArea div {
+    white-space: normal;
+    color: #f0f;
+    font-size: 3vh;
+    display: flex;
+    height: 58vh;
+    max-height: 58vh;
+    width: 28vw;
+    border: solid 1px #f0f;
+    border-radius: 2vh;
+    text-align: left;
+    margin-top: 2vh;
+    padding: 1vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    /*Scrollbar customization*/
+    /*Microsoft*/
+    scrollbar-3dlight-color: #e0b0ff;
+    scrollbar-arrow-color: #f0f;
+    scrollbar-darkshadow-color: #f0f;
+    /*scrollbar-base-color: ;
+    scrollbar-face-color: ;
+    scrollbar-highlight-color: ;
+    scrollbar-shadow-color: ;*/
+
+    /*Firefox(Gecko)*/
+    scrollbar-color: #f0f;
+    scrollbar-width: 8px;
+}
+#loggingArea div::-webkit-scrollbar {
+	width: 5px;
+}
+
+#loggingArea div::-webkit-scrollbar-track {
+	background: #ff6af340;
+}
+
+#loggingArea div::-webkit-scrollbar-thumb {
+	background-color: #ff6af3;
+	border-radius: 12px;
+	border: none;
+}
+
+
+.tabsHeader {
+    margin: 1vh;
+    display: table;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #f0f;
+    border-radius: 2vh;
+}
+
+.tabButton {
+    width: 14.5vw;
+    font-size: 3vh;
+    color: #f0f;
+    display: inline-table;
+    text-align: center;
+    padding: 2vh 4vw;
+    user-select: none;
+    cursor: pointer;
+}
+
+.tabButton:hover {
+    background-color: #e0b0ff50;
+}
+
+.tabButton:active {
+    background-color: #e0b0ff;
+}
+
+.firstTabButton {
+    border-right: solid 1px #f0f;
+}
+
+.lastTabButton {
+    border-left: solid 1px #f0f;
+}
+
+.tabButtonActive {
+    background-color: #e0b0ff90;
+    box-shadow: 0vh 0vh 4vh 0.5vh #e0b0ff;
+}
+
+.row {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.element {
+	display: inline-table;
+	border: solid 1px #ff00ff;
+	height: 20vh;
+	width: 20vh;
+	margin: 2vh;
+	border-radius: 2vh;
+}
+
+.element img {
+	height: 20vh;
+	width: 20vh;
+	object-fit: cover;
+	border-bottom: solid 1px #f0f;
+	border-top-right-radius: 2vh;
+	border-top-left-radius: 2vh;
+}
+
+.element text {
+	font-size: 2vh;
+	color: #a8ebff;
+}
+
+.element b {
+	font-size: 2.3vh;
+	color: #b7a0ff;
+}
+
+.element input[type="text"] {
+    /*reset border first*/
+    border: none;
+	border-top: solid 1px #f0f;
+	font-size: 2.7vh;
+	padding: 1vh;
+	color: #e0b0ff;
+	width: 90%;
+	background: transparent;
+	border-bottom-right-radius: 2vh;
+	border-bottom-left-radius: 2vh;
+}
+
+.element input[type="button"] {
+	border-top: solid 1px #f0f;
+	font-size: 2.7vh;
+	padding: 1vh;
+	color: #e0b0ff;
+	width: 100%;
+	background: #e0b0ff20;
+	border-bottom-right-radius: 2vh;
+	border-bottom-left-radius: 2vh;
+}
+
+.element input[type="button"]:hover {
+	background: #e0b0ff80;
+}
+
+.element input[type="button"]:active {
+	background: #e0b0ffff;
+}
+
+input:focus {
+    outline: none;
+}
+
+.account input[type="button"] {
+	color: #f00;
+	border-top: solid 1px #f00;
+}
+
+.account input[type="button"]:hover {
+	background: #ff000080;
+}
+
+.account input[type="button"]:active {
+    background: #f00;
+}
+
+.horizontalLine {
+    border: none;
+    background-color: #f0f;
+    height: 1px;
+    width: 68vw;
+    margin: 2vh;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#addButtonContainer {
+	position: fixed;
+	bottom: 5vh;
+	right: 1vw;
+	z-index: 9vh;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+#addButtonContainer:hover {
+    background-color: #e0b0ff80;
+}
+
+#addButtonContainer:active {
+    background-color: #e0b0ff;
+}
+
+#addButtonContainer img {
+	height: 5vh;
+	width: 5vh;
+}
+
+#addButtonContainer input[type="file"] {
+    display: none;
+}
+
+.tab {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.scrollableDiv {
+    white-space: normal;
+    color: #f0f;
+    font-size: 3vh;
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    height: 84%;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #f0f;
+    border-radius: 2vh;
+    text-align: left;
+    margin-top: 2vh;
+    padding: 1vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    /*Scrollbar customization*/
+    /*Microsoft*/
+    scrollbar-3dlight-color: #e0b0ff;
+    scrollbar-arrow-color: #f0f;
+    scrollbar-darkshadow-color: #f0f;
+    /*scrollbar-base-color: ;
+    scrollbar-face-color: ;
+    scrollbar-highlight-color: ;
+    scrollbar-shadow-color: ;*/
+
+    /*Firefox(Gecko)*/
+    scrollbar-color: #f0f;
+    scrollbar-width: 8px;
+}
+.scrollableDiv::-webkit-scrollbar {
+	width: 5px;
+}
+
+.scrollableDiv::-webkit-scrollbar-track {
+	background: #ff6af340;
+}
+
+.scrollableDiv::-webkit-scrollbar-thumb {
+	background-color: #ff6af3;
+	border-radius: 12px;
+	border: none;
+}
+
+
+.productsContainer {
+    width: 94%;
+    min-height: 50%;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1vh;
+    white-space: normal;
+    border: solid 1px #f0f;
+}
+#animationDiv {
+	background: #00000099;
+	display: none;
+	text-align: center;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+#animationDiv div {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.animationText {
+	color: #900090;
+	text-shadow: 0vh 0vh 2vh 2vh #e0b0ff;
+	font-style: italic;
+	font-size: 5vh;
+}
+
+.animTextWhite {
+	color: #fff;
+	text-shadow: 0vh 0vh 4vh #f0f;
+	font-style: italic;
+	font-size: 5vh;
+	white-space: pre;
+}

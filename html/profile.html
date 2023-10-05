@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Your profile</title>
+        <link rel="stylesheet" href="../css/rhodaPhone.css">
+    </head>
+    <body>
+        <a href="../index.html"><img src="../images/wordmark.png" class="wordmarkLogo"></a>
+        <img id="profilePic" src="../images/default_profile_picture.png">
+        <!--Invisible iput for selecting image file-->
+        <input id="selectImage" accept="image/*" type="file">
+        <input id="username" class="textInput center" type="text" placeholder="username" value="username" readonly>
+        <input id="phoneNumber" class="textInput center" type="text" placeholder="phone number" value="phone number" readonly>
+        <input id="emailAddress" class="textInput center" type="text" placeholder="emailAddress" value="emailAddress" readonly>
+        <input id="edit-save-button" class="linkButtons center" type="button" value="EDIT">
+		<div class="tabsHeader">
+			<div id="logout" class="tabButton getMoreProductsButton"  title="click to log out">LOGOUT</div>
+		</div>
+    </body>
+    <script type="text/javascript" src="../scripts/cookies-manager.js"></script>
+    <script type="module" src="../scripts/profile.js"></script>
+</html>
