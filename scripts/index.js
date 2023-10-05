@@ -8,6 +8,10 @@ if (height / width < 1 ) {
     document.getElementsByTagName("link")[0].setAttribute("href", "css/rhoda.css");
 }
 
+if(getCookie("uid") === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+    window.location.href = "html/admin.html";
+}
+
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";

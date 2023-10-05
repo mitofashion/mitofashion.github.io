@@ -134,6 +134,10 @@ loginButton.onclick = () => {
                                             setCookie("username", username, 90);
                                             setCookie("rank", rank, 90);
 
+                                            if(user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                window.location.href = "admin.html";
+                                            }
+
                                             //relocate to the home page now
                                             window.location.href = "../index.html";
                                         })

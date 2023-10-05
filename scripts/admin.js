@@ -1,3 +1,8 @@
+if(getCookie("uid") !== "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+    alert("You are not the amin, how'd you get here?");
+    window.location.href = "../index.html";
+}
+
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
