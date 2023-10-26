@@ -293,6 +293,7 @@ table.centerTable {
 .product img {
 	height: 35vw;
 	width: 35vw;
+	min-width: 100%;
 	object-fit: cover;
 	border-bottom: solid 1px #f0f;
 	border-top-right-radius: 2vh;
