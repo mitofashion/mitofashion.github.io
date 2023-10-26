@@ -10,7 +10,7 @@ if (height / width < 1 ) {
 
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+import { getAuth, updateEmail } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
 import { getStorage, getBytes, uploadBytes, ref, uploadString, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -101,6 +101,7 @@ emailAddressInput.value = emailAddress;
 //set the isdownloading just to allow for image download
 isUploading = true;
 //get the profle pic file type
+showProgressDialog("Getting profile picture...");
 getBytes(ref(storage, "users/" + uid + "/imageFileType"), 10).then(
     bytes => {
         let imageFileType = makeStringFromByteArray(bytes);
@@ -110,6 +111,7 @@ getBytes(ref(storage, "users/" + uid + "/imageFileType"), 10).then(
             url => {
                 profilePic.setAttribute("src", url);
                 isUploading = false;
+                hideProgressDialog();
             }
         )
     }
@@ -117,6 +119,7 @@ getBytes(ref(storage, "users/" + uid + "/imageFileType"), 10).then(
 
 logoutButton.onclick = () => {
     if (!isUploading) {
+        showProgressDialog("Logging you out...");
         //remove all user data
         //Now set the coookies
         setCookie("uid", "", 90);
@@ -155,15 +158,15 @@ editOrSaveButton.onclick = () => {
             //make inputs editable
             usernameInput.readOnly = false;
             phoneNumberInput.readOnly = false;
-            emailAddressInput.readOnly = false;
             //Now set the value of the button
             editOrSaveButton.value = "SAVE";
         } else {
             //ensure the values are provided
             if (!(usernameInput.value && phoneNumberInput.value && emailAddressInput.value)) {
-                alert("Sorry, all fields are required!");
+                alert("Sorry, all fields are required and no letters in number!😭");
                 return;
             }
+            showProgressDialog("Saving your data...");
             //Take pointer from profile pic
             profilePic.style.cursor = "default";
             //remove the click event handler
@@ -215,24 +218,51 @@ editOrSaveButton.onclick = () => {
                                         uploadString(ref(storage, "users/" + uid + "/phoneNumber"), phoneNumberInput.value).then(
                                             snapshot3 => {
                                                 console.log("phoneNumber uploaded!");
-                                                //email Address
-                                                uploadString(ref(storage, "users/" + uid + "/emailAddress"), emailAddressInput.value).then(
-                                                    snapshot4 => {
-                                                        console.log("Email address uploaded successfully!");
-                                                        console.log("Upload complete!");
-                                                        isUploading = false;
-                                                        //set the cookie values of the information
-                                                        setCookie("username", usernameInput.value, 90);
-                                                        setCookie("phoneNumber", phoneNumberInput.value, 90);
-                                                        setCookie("emailAddress", emailAddressInput.value, 90);
-                                                    }
-                                                )
+                                                console.log("Email address uploaded successfully!");
+                                                console.log("Upload complete!");
+                                                isUploading = false;
+                                                //set the cookie values of the information
+                                                setCookie("username", usernameInput.value, 90);
+                                                setCookie("phoneNumber", phoneNumberInput.value, 90);
+                                                setCookie("emailAddress", emailAddressInput.value, 90);
+                                                
+                                                hideProgressDialog();
+                                                //Go back to main menu
+                                                window.location.href = "../index.html";
+                                            }
+                                        ).catch(
+                                            error => {
+                                                console.log("Error occurred!");
+                                                console.log(error);
+                                                hideProgressDialog();
+                                                alert("Connection error!😢");
                                             }
                                         )
                                     }
+                                ).catch(
+                                    error => {
+                                        console.log("Error occurred!");
+                                        console.log(error);
+                                        hideProgressDialog();
+                                        alert("Connection error!😢");
+                                    }
                                 )
                             }
+                        ).catch(
+                            error => {
+                                console.log("Error occurred!");
+                                console.log(error);
+                                hideProgressDialog();
+                                alert("Connection error!😢");
+                            }
                         )
+                    }
+                ).catch(
+                    error => {
+                        console.log("Error occurred!");
+                        console.log(error);
+                        hideProgressDialog();
+                        alert("Connection error!😢");
                     }
                 )
             } else {
@@ -256,10 +286,33 @@ editOrSaveButton.onclick = () => {
                                     setCookie("username", usernameInput.value, 90);
                                     setCookie("phoneNumber", phoneNumberInput.value, 90);
                                     setCookie("emailAddress", emailAddressInput.value, 90);
+
+                                    hideProgressDialog();
+                                }
+                            ).catch(
+                                error => {
+                                    console.log("Error occurred!");
+                                    console.log(error);
+                                    hideProgressDialog();
+                                    alert("Connection error!😢");
                                 }
                             )
                         }
+                    ).catch(
+                        error => {
+                            console.log("Error occurred!");
+                            console.log(error);
+                            hideProgressDialog();
+                            alert("Connection error!😢");
+                        }
                     )
+                }
+            ).catch(
+                error => {
+                    console.log("Error occurred!");
+                    console.log(error);
+                    hideProgressDialog();
+                    alert("Connection error!😢");
                 }
             )
         }

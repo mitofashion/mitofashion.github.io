@@ -25,7 +25,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const storage = getStorage(app);
 
 //animation
 var instance;
@@ -72,86 +71,36 @@ function hideProgressDialog() {
 	}
 }
 
-//references to the views
-var usernameInput = document.getElementById("usernameInput");
 var emailAddressInput = document.getElementById("emailAddress");
-var phoneNumberInput = document.getElementById("phoneNumber");
-var passwordInput = document.getElementById("password");
-var createAccountButton = document.getElementById("createAccountButton");
+var submitEmailButton = document.getElementById("submitEmailButton");
 
-createAccountButton.onclick = () => {
-	//Here we create the account
-	//get the details
-	var username = usernameInput.value;
-	var emailAddress = emailAddressInput.value;
-	var phoneNumber = phoneNumberInput.value;
-	var password = passwordInput.value;
+submitEmailButton.onclick = () => {
+    if (emailAddressInput.value) {
+        var emailAddress = emailAddressInput.value;
+        //send the signing email
 
-	if (validateAccountCreationDetails(username, emailAddress, phoneNumber, password)) {
-		//Details are valid, create the user in the database
-		showProgressDialog("Signing you up...");
-		createUserWithEmailAndPassword(auth, emailAddress, password)
-			.then(() => {
+        const actionCodeSettings = {
+            url: "https://mitofashion.github.io",
+            handleCodeInApp: true,
+        };
 
-				/*
-				SEND AN EMAIL VERIFICATION EMAIL TO THE USER
-				FROM WHICH INITIAL SIGN IN OCCURS
-				*/
+        sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+            .then(() => {
+                hideProgressDialog();
+                alert("Please check your email inbox for login link😊");
+                alert("Please reset your password in the profile after loging in")
+                //relocate to the index page
+                console.log("Login email sent!");
+            })
 
-				//set the cookie for account creation details
-				setCookie("isCreatingAccount", "true");
-				setCookie("accountCreationUsername", username);
-				setCookie("accountCreationEmail", emailAddress);
-				setCookie("accountCreationPhoneNumber", phoneNumber);
-				setCookie("accountCreationUid", auth.currentUser.uid);
-				setCookie("accountCreationPassword", password);
-
-				//send the emailAddressVerification email
-				const actionCodeSettings = {
-					url: "https://mitofashion.github.io",
-					handleCodeInApp: true,
-				};
-
-				sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
-					.then(() => {
-						hideProgressDialog();
-						alert("Please check your email inbox for the verification email😊");
-						console.log("Verification email sent!");
-					})
-
-					.catch(error => {
-						hideProgressDialog();
-						alert("Sorry, daily email limit exceeded!😭");
-						//relocate to the index page
-						window.location.href = "../index.html";
-						console.log("Error during verification email sending...");
-						console.log("error.code: " + error.code);
-						console.log("error.message" + error.message);
-					})
-				console.log("Account created succssfully!");
-			})
-			.catch((error) => {
-				hideProgressDialog();
-				alert("A problem ocurred during account creation");
-				console.log("A problem ocurred during account creation!");
-				console.log("ERROR_CODE: " + error.code);
-				console.log("ERROR_MESSSAGE: " + error.message);
-			});
+            .catch(error => {
+                hideProgressDialog();
+                alert("Sorry, maximum daily email limit exceeded!😭");
+                console.log("Error during login link email sending...");
+                console.log("error.code: " + error.code);
+                console.log("error.message" + error.message);
+            })
+    } else {
+		alert("Email address is required😭");
 	}
-}
-
-function validateAccountCreationDetails(username, emailAddress, phoneNumber, password) {
-	/*expression = /^[^@]+@\w+(\.\w+)+\w+w$/*/
-	//This expression did not work as expected... I really need to read regex
-	if (username.length === 0 || emailAddress.length === 0 || phoneNumber.length === 0 || password.length === 0) {
-		alert("Sorry, all fields are required!");
-		return false;
-	} else if (password.length < 6) {
-		alert("Sorry, password must be at least six characters!");
-		return false;
-	} else if (emailAddress.indexOf("@") < 0 || emailAddress.indexOf(".") < 0) {
-		alert("Please enter a valid emailAddress");
-		return false;
-	}
-	return true;
 }

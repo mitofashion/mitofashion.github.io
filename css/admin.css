@@ -73,6 +73,29 @@ body, html {
     margin-right: auto;
 }
 
+#logoutButtton {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    border: solid 1px red;
+    border-radius: 1.5vh;
+    color: red;
+    background: #f002;
+    padding: 1vh 2vw;
+    font-size: 2.5vh;
+    user-select: none;
+    cursor: pointer;
+}
+
+#logoutButtton:hover {
+    background: #f005;
+}
+
+#logoutButtton:active {
+    background: #f00;
+}
+
 #loggingArea {
     display: table;
     text-align: left;
@@ -85,7 +108,7 @@ body, html {
     color: #f0f;
     font-size: 3vh;
     display: flex;
-    height: 58vh;
+    height: 51vh;
     max-height: 58vh;
     width: 28vw;
     border: solid 1px #f0f;
@@ -180,11 +203,13 @@ body, html {
 	width: 20vh;
 	margin: 2vh;
 	border-radius: 2vh;
+    white-space: normal;
 }
 
 .element img {
 	height: 20vh;
 	width: 20vh;
+    min-width: 100%;
 	object-fit: cover;
 	border-bottom: solid 1px #f0f;
 	border-top-right-radius: 2vh;
@@ -192,13 +217,19 @@ body, html {
 }
 
 .element text {
+    display: table;
 	font-size: 2vh;
 	color: #a8ebff;
+    max-width: 18vh;
+    white-space: normal;
 }
 
 .element b {
 	font-size: 2.3vh;
 	color: #b7a0ff;
+    display: table;
+    max-width: 18vh;
+    white-space: normal;
 }
 
 .element input[type="text"] {
@@ -230,6 +261,73 @@ body, html {
 }
 
 .element input[type="button"]:active {
+	background: #e0b0ffff;
+}
+
+.people {
+	display: inline-table;
+	border: solid 1px #ff00ff;
+	height: 20vh;
+	width: 20vh;
+	margin: 2vh;
+	border-radius: 2vh;
+    white-space: normal;
+}
+
+.people img {
+	height: 20vh;
+	width: 20vh;
+    min-width: 100%;
+	object-fit: cover;
+	border-bottom: solid 1px #f0f;
+	border-top-right-radius: 2vh;
+	border-top-left-radius: 2vh;
+}
+
+.people text {
+    display: table;
+	font-size: 2vh;
+	color: #a8ebff;
+    max-width: 18vh;
+    white-space: normal;
+}
+
+.people b {
+	font-size: 2.3vh;
+	color: #b7a0ff;
+    display: table;
+    max-width: 18vh;
+    white-space: normal;
+}
+
+.people input[type="text"] {
+    /*reset border first*/
+    border: none;
+	border: solid 1px #f0f;
+	font-size: 2.7vh;
+	padding: 1vh;
+	color: #e0b0ff;
+	width: 90%;
+	background: transparent;
+	border-bottom-right-radius: 2vh;
+	border-bottom-left-radius: 2vh;
+}
+
+.people input[type="button"] {
+	border: solid 1px #f0f;
+	font-size: 2.7vh;
+	padding: 1vh;
+	color: #e0b0ff;
+	width: 100%;
+	background: #e0b0ff20;
+    border-radius: 0vh;
+}
+
+.people input[type="button"]:hover {
+	background: #e0b0ff80;
+}
+
+.people input[type="button"]:active {
 	background: #e0b0ffff;
 }
 

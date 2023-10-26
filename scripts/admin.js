@@ -1,4 +1,21 @@
-if(getCookie("uid") !== "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+const superConsole = window.console;
+var loggingArea = document.getElementById("loggingArea");
+
+var console = {};
+console.log = (text) => {
+    loggingArea.children[0].innerHTML += "<br>" + text;
+    
+    loggingArea.children[0].scrollTo({
+        top: loggingArea.children[0].scrollHeight,
+        behavior: "smooth"
+    });
+
+    superConsole.log(text);
+}
+
+window.console = console;
+
+if (getCookie("uid") !== "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
     alert("You are not the amin, how'd you get here?");
     window.location.href = "../index.html";
 }
@@ -26,45 +43,45 @@ const storage = getStorage(app);
 var instance;
 
 function showProgressDialog(text) {
-	var state = 0;
-	
-	var stateOneText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateTwoText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateThreeText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateFourText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
-	
-	var animationDiv = document.getElementById("animationDiv");
-	//set the text
-	animationDiv.children[0].children[0].innerText = text;
-	animationDiv.style.display = "table";
+    var state = 0;
 
-	instance = window.setInterval(() => {
-		if(state === 0) {
-			//display state zeero anim
-			animationDiv.children[0].innerHTML = stateOneText;
-			state += 1;
-		} else if(state === 1) {
-			//display state one text
-			animationDiv.children[0].innerHTML = stateTwoText;
-			state += 1;
-		} else if(state === 2) {
-			//displae stste 2 text
-			animationDiv.children[0].innerHTML = stateThreeText;
-			state += 1;
-		} else if(state === 3) {
-			//display state three text
-			animationDiv.children[0].innerHTML = stateFourText;
-			state = 0;
-		}
-	}, 200);
+    var stateOneText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateTwoText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateThreeText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateFourText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
+
+    var animationDiv = document.getElementById("animationDiv");
+    //set the text
+    animationDiv.children[0].children[0].innerText = text;
+    animationDiv.style.display = "table";
+
+    instance = window.setInterval(() => {
+        if (state === 0) {
+            //display state zeero anim
+            animationDiv.children[0].innerHTML = stateOneText;
+            state += 1;
+        } else if (state === 1) {
+            //display state one text
+            animationDiv.children[0].innerHTML = stateTwoText;
+            state += 1;
+        } else if (state === 2) {
+            //displae stste 2 text
+            animationDiv.children[0].innerHTML = stateThreeText;
+            state += 1;
+        } else if (state === 3) {
+            //display state three text
+            animationDiv.children[0].innerHTML = stateFourText;
+            state = 0;
+        }
+    }, 200);
 }
 
 function hideProgressDialog() {
-	if(instance) {
-		window.clearInterval(instance);
-		var animationDiv = document.getElementById("animationDiv");
-		animationDiv.style.display = "none";
-	}
+    if (instance) {
+        window.clearInterval(instance);
+        var animationDiv = document.getElementById("animationDiv");
+        animationDiv.style.display = "none";
+    }
 }
 
 //getting the tabButtons
@@ -25616,7 +25633,7 @@ listAll(ref(storage, "products/shoes/unisex")).then(
 
 //download products
 function downloadProduct(productReferences, i, gender, genre, callBackFunction) {
-    
+
     console.log("PROUCT REFS 2...");
     console.log(productReferences);
     var productRef = productReferences[i];
@@ -25635,10 +25652,10 @@ function downloadProduct(productReferences, i, gender, genre, callBackFunction) 
                     getDownloadURL(ref(productRef, "image." + imageFileType)).then(
                         url => {
                             var productElement = "";
-                           //Now make the element
+                            //Now make the element
                             productElement += "<div class=\"element\">";
                             productElement += "   <img src=\"" + url + "\"><br>";
-                            productElement += "   <text>" + name + "</text><br>";
+                            productElement += "   <text>" + productRef.name + "</text><br>";
                             productElement += "   <b>Ksh. " + price + "</b><br>";
                             productElement += "   <input name=\"" + productRef.name + "\" gender=\"" + gender + "\" genre=\"" + genre + "\" type=\"button\" value=\"delete\">";
                             productElement += "</div>";
@@ -25696,7 +25713,7 @@ function downloadUser(userReferences, i, callBackFunction) {
                             </div>
                             */
                             var userElement = "";
-                            userElement += "<div class=\"element\">";
+                            userElement += "<div class=\"people\">";
                             userElement += "<img src=\"" + url + "\"><br>";
                             userElement += "<text>" + username + "</text><br>";
                             userElement += "<input type=\"button\" uid=\"" + userDataRef.name + "\" value=\"suspend account\">";
@@ -25732,58 +25749,70 @@ function downloadOrders(ordersReferences, i, callBackFunction) {
     getBytes(ref(storage, "users/" + orderRef.name + "/username"), 100).then(
         bytes1 => {
             var username = makeStringFromByteArray(bytes1);
-            //Now get this guy's profile pic type
-            getBytes(ref(storage, "users/" + orderRef.name + "/imageFileType"), 10).then(
-                bytes2 => {
-                    var imageFileType = makeStringFromByteArray(bytes2);
-                    //Now get the profile image download url
-                    getDownloadURL(ref(storage, "users/" + orderRef.name + "/image." + imageFileType)).then(
-                        url => {
-                            //Now create the order
-                            /*
-                            <div class="element">
-                                <img src="../good.jpg"><br>
-                                <text>ordderer name</text><br>
-                                <input type="button" value="remove order">
-                                <input type="button" value="remove order and products">
-                            </div>
-                            */
-                            var order = "";
-                            order += "<div class=\"element\" uid =\"" + orderRef.name + "\" id=\"" + orderRef.name + "Order\">";
-                            order += "  <img src=\"" + url + "\"><br>";
-                            order += "<text>" + username + "</text><br>";
-                            order += "<input type=\"button\" uid=\"" + orderRef.name + "\" value=\"remove\" title=\"removing orders deletes products as well!\"><br>";
-                            order += "<input type=\"button\" uid=\"" + orderRef.name + "\" value=\"view\" title=\"view the orders placed by this idividual!\">";
-                            order += "</div>";
+            //get the total price
+            getBytes(ref(storage, "users/" + orderRef.name + "/orders/totalPrice")).then(
+                bytes5 => {
+                    var totalPrice = makeStringFromByteArray(bytes5);
+                    //Now get this guy's profile pic type
+                    getBytes(ref(storage, "users/" + orderRef.name + "/imageFileType"), 10).then(
+                        bytes2 => {
+                            var imageFileType = makeStringFromByteArray(bytes2);
+                            //Now get the profile image download url
+                            getDownloadURL(ref(storage, "users/" + orderRef.name + "/image." + imageFileType)).then(
+                                url => {
+                                    //Now create the order
+                                    /*
+                                    <div class="element">
+                                        <img src="../good.jpg"><br>
+                                        <text>ordderer name</text><br>
+                                        <input type="button" value="remove order">
+                                        <input type="button" value="remove order and products">
+                                    </div>
+                                    */
+                                    var order = "";
+                                    order += "<div class=\"people\" uid =\"" + orderRef.name + "\" id=\"" + orderRef.name + "Order\">";
+                                    order += "  <img src=\"" + url + "\"><br>";
+                                    order += "<text>" + username + "</text><br>";
+                                    order += "<input type=\"button\" uid=\"" + orderRef.name + "\" value=\"ROADP\" title=\"Remove Order And Delete Products\"><br>";
+                                    order += "<input type=\"button\" uid=\"" + orderRef.name + "\" value=\"view\" title=\"view the orders placed by this idividual!\"><br>";
+                                    order += "<input type=\"button\" uid=\"" + orderRef.name + "\" value=\"ROARP\" title=\"Remove Order And Restore Products\">";
+                                    order += "<text>total_cost: " + totalPrice + "</text><br>";
+                                    order += "</div>";
 
-                            //Append the order
-                            ordersTab.children[0].innerHTML += order;
+                                    //Append the order
+                                    ordersTab.children[0].innerHTML += order;
 
-                            if (i === ordersReferences.length - 1) {
+                                    if (i === ordersReferences.length - 1) {
 
-                                if (callBackFunction) {
-                                    callBackFunction();
-                                } else {
-                                    hideProgressDialog();
-                                }
-                                console.log("FINISHED...");
-                                //set the listenerss
-                                for(var j = 0; j < ordersTab.children[0].children.length; j++) {
-                                    ordersTab.children[0].children[j].children[4].onclick = (event) => {
-                                        removeOrderAndDeleteProduts(event);
+                                        if (callBackFunction) {
+                                            callBackFunction();
+                                        } else {
+                                            hideProgressDialog();
+                                        }
+                                        console.log("FINISHED...");
+                                        //set the listenerss
+                                        for (var j = 0; j < ordersTab.children[0].children.length; j++) {
+                                            ordersTab.children[0].children[j].children[4].onclick = (event) => {
+                                                removeOrderAndDeleteProduts(event);
+                                            }
+                                            console.log(ordersTab.children[0].children[j]);
+                                            console.log(ordersTab.children[0].children[j].children[6]);
+
+                                            ordersTab.children[0].children[j].children[6].onclick = (event) => {
+                                                showMoreAboutOrder(event);
+                                            }
+
+                                            ordersTab.children[0].children[j].children[8].onclick = (event) => {
+                                                removeOrdersAndRetainProducts(event);
+                                            }
+                                        }
+
+                                    } else {
+                                        console.log("order[" + i + "] downloaded...");
+                                        downloadOrders(ordersReferences, i + 1, callBackFunction);
                                     }
-                                    console.log(ordersTab.children[0].children[j]);
-                                    console.log(ordersTab.children[0].children[j].children[6]);
-
-                                    ordersTab.children[0].children[j].children[6].onclick = (event) => {
-                                        showMoreAboutOrder(event);
-                                    }
                                 }
-
-                            } else {
-                                console.log("order[" + i + "] downloaded...");
-                                downloadOrders(ordersReferences, i + 1, callBackFunction);
-                            }
+                            )
                         }
                     )
                 }
@@ -25883,9 +25912,9 @@ function removeOrderAndDeleteProduts(event) {
 function removeAnOrder(ordersReferences, i, callBackFunction) {
     var orderRef = ordersReferences[i];
     deleteDBFolder(orderRef, 0, () => {
-        if(i === ordersReferences.length - 1) {
+        if (i === ordersReferences.length - 1) {
             console.log("DONE...");
-            if(callBackFunction) {
+            if (callBackFunction) {
                 callBackFunction();
             }
         } else {
@@ -25908,6 +25937,102 @@ function deleteDBFolder(dbFolderRef, i, callBackFunction) {
                         }
                     } else {
                         deleteDBFolder(dbFolderRef, i, callBackFunction);
+                    }
+                }
+            )
+        }
+    )
+}
+
+//set the click listener for logout button
+var logoutButtton = document.getElementById("logoutButtton");
+logoutButtton.onclick = () => {
+    //logout the admin and relocate to index
+    setCookie("uid", "", 90);
+    setCookie("emailAddress", "", 90);
+    setCookie("phoneNumber", "", 90);
+    setCookie("username", "", 90);
+    setCookie("rank", "", 90);
+    setCookie("orders", "", 90);
+    setCookie("ordersCount", "", 90);
+    //go back to home page
+    window.location.href = "../index.html";
+}
+
+function removeOrdersAndRetainProducts(event) {
+    var uid = event.target.getAttribute("uid");
+    showProgressDialog("Removing orders while retaining products...");
+    listAll(ref(storage, "users/" + uid + "/orders")).then(
+        response => {
+            removeAnOrderAndRetainProduct(response.prefixes, 0, () => {
+                hideProgressDialog();
+                //lastly remove this user from the orderers
+                deleteObject(ref(storage, "orders/" + uid + "/anville95")).then(
+                    () => {
+                        //remove the total price
+                        deleteObject(ref(storage, "users/" + uid + "/orders/totalPrice")).then(
+                            () => {
+                                console.log("Order deleted completely!");
+                                console.log("Reloading...");
+                                setCookie("ordererID", "");
+                                window.location.href = "admin.html";
+                            }
+                        )
+                    }
+                )
+            })
+        }
+    )
+}
+
+//reemoves order recursive
+function removeAnOrderAndRetainProduct(orderedProductFolderReferences, i, callBackFunction) {
+    var orderedProductReference = orderedProductFolderReferences[i];
+    //get the info
+    var orderedProductInfo = orderedProductReference.name.split(";");
+    console.log("orderedProductInfo...");
+    console.log(orderedProductInfo);
+    //now copy the folder
+    copyDBFolder(orderedProductReference, ref(storage, "products/" + orderedProductInfo[2] + "/" + orderedProductInfo[1] + "/" + orderedProductInfo[0]), () => {
+        //now delete the OG folder from the user
+        deleteDBFolder(orderedProductReference, 0, () => {
+            if(i === orderedProductFolderReferences.length - 1) {
+                console.log("ALL ORDES REMOVED SUCCESSFULLY WITHOUT REMOVING PROCUCTS");
+    
+                if(callBackFunction) {
+                    callBackFunction();
+                }
+            } else {
+                console.log("AN ORDER WAS REMOVED!");
+                removeAnOrderAndRetainProduct(orderedProductFolderReferences, i + 1, callBackFunction);
+            }
+        })
+    })
+}
+
+function copyDBFolder(originFolderRef, destinationFolderRef, callBackFunction) {
+    console.log("Starting to copy folder <" + originFolderRef.name + ">");
+    listAll(originFolderRef).then(
+        response => {
+            copyObject(response.items, destinationFolderRef, 0, callBackFunction);
+        }
+    )
+}
+
+function copyObject(objectsReferences, destinationFolderRef, i, callBackFunction) {
+    //get the obejct
+    getBytes(objectsReferences[i]).then(
+        bytes => {
+            //upload it
+            uploadBytes(ref(destinationFolderRef, objectsReferences[i].name), bytes).then(
+                () => {
+                    console.log("Object[" + i + "] uploaded successfully!");
+                    if (i === objectsReferences.length - 1) {
+                        if (callBackFunction) {
+                            callBackFunction();
+                        }
+                    } else {
+                        copyObject(objectsReferences, destinationFolderRef, i + 1, callBackFunction);
                     }
                 }
             )

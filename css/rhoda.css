@@ -16,6 +16,10 @@ input:focus {
 	outline: none;
 }
 
+a {
+	text-decoration: none;
+}
+
 /*All tables are center unless otherwise
 */
 table.centerTable {
@@ -288,6 +292,7 @@ table.centerTable {
 .product img {
 	height: 20vh;
 	width: 20vh;
+	min-width: 100%;
 	object-fit: cover;
 	border-bottom: solid 1px #f0f;
 	border-top-right-radius: 2vh;
@@ -297,11 +302,13 @@ table.centerTable {
 .product text {
 	font-size: 2vh;
 	color: #a8ebff;
+	max-width: 80%;
 }
 
 .product b {
 	font-size: 2.3vh;
 	color: #b7a0ff;
+	max-width: 80%;
 }
 
 .product input[type="button"] {
@@ -467,6 +474,7 @@ table.centerTable {
 #edit-save-button {
 	padding: 1vh 6vw;
 	border: solid 1px #f0f;
+	color: #fff;
 }
 
 #selectImage {
@@ -477,7 +485,7 @@ table.centerTable {
 	background: black;
 }
 
-#removeOrderButton {
+#removeOrderButton, #removeOrderRetainProductsButton {
 	display: table;
 }
 

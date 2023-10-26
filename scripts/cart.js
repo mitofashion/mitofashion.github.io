@@ -3,7 +3,7 @@
 var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 //Redirect to mobile layout page if The aspect ratio is that of a mobile
-if (height / width < 1 ) {
+if (height / width < 1) {
     //set the value of the link
     document.getElementsByTagName("link")[0].setAttribute("href", "../css/rhoda.css");
 }
@@ -31,45 +31,45 @@ const storage = getStorage(app);
 var instance;
 
 function showProgressDialog(text) {
-	var state = 0;
-	
-	var stateOneText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateTwoText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateThreeText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateFourText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
-	
-	var animationDiv = document.getElementById("animationDiv");
-	//set the text
-	animationDiv.children[0].children[0].innerText = text;
-	animationDiv.style.display = "table";
+    var state = 0;
 
-	instance = window.setInterval(() => {
-		if(state === 0) {
-			//display state zeero anim
-			animationDiv.children[0].innerHTML = stateOneText;
-			state += 1;
-		} else if(state === 1) {
-			//display state one text
-			animationDiv.children[0].innerHTML = stateTwoText;
-			state += 1;
-		} else if(state === 2) {
-			//displae stste 2 text
-			animationDiv.children[0].innerHTML = stateThreeText;
-			state += 1;
-		} else if(state === 3) {
-			//display state three text
-			animationDiv.children[0].innerHTML = stateFourText;
-			state = 0;
-		}
-	}, 200);
+    var stateOneText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateTwoText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateThreeText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateFourText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
+
+    var animationDiv = document.getElementById("animationDiv");
+    //set the text
+    animationDiv.children[0].children[0].innerText = text;
+    animationDiv.style.display = "table";
+
+    instance = window.setInterval(() => {
+        if (state === 0) {
+            //display state zeero anim
+            animationDiv.children[0].innerHTML = stateOneText;
+            state += 1;
+        } else if (state === 1) {
+            //display state one text
+            animationDiv.children[0].innerHTML = stateTwoText;
+            state += 1;
+        } else if (state === 2) {
+            //displae stste 2 text
+            animationDiv.children[0].innerHTML = stateThreeText;
+            state += 1;
+        } else if (state === 3) {
+            //display state three text
+            animationDiv.children[0].innerHTML = stateFourText;
+            state = 0;
+        }
+    }, 200);
 }
 
 function hideProgressDialog() {
-	if(instance) {
-		window.clearInterval(instance);
-		var animationDiv = document.getElementById("animationDiv");
-		animationDiv.style.display = "none";
-	}
+    if (instance) {
+        window.clearInterval(instance);
+        var animationDiv = document.getElementById("animationDiv");
+        animationDiv.style.display = "none";
+    }
 }
 
 //reference to the container
@@ -168,7 +168,7 @@ function downloadOrders(array, i/*"i" is index */, callBackFunction) {
 
 function makeOrders() {
     //check the userID first
-    if(!(getCookie("uid") || getCookie("emailAddress"))) {
+    if (!(getCookie("uid") || getCookie("emailAddress"))) {
         alert("Sorry, you are not logged in!");
         window.location.href = "sign-up.html";
     }
@@ -177,15 +177,72 @@ function makeOrders() {
         showProgressDialog("Making orders...");
         var ordersArray = ordersDSV.split(">>");
         uploadOrder(ordersArray, 0, () => {
-            //Hide the make orders button
-            var makeOrderButton = document.getElementById("makeOrderButton");
-            makeOrderButton.style.display = "none";
-            //clear the orders
-            cartProductsContainer.innerHTML = "";
-            setCookie("orders", "");
-            setCookie("ordersCount", "");
-            //relocate
-            window.location.href = "../index.html";
+            //upload the total  orders price
+            var totalPrice = 0;
+            for (var x = 0; x < cartProductsContainer.children.length; x++) {
+                //cut from "Ksh. "
+                var priceInWords = cartProductsContainer.children[x].children[4].innerText;
+                var priceToAdd = Number(priceInWords.substring(priceInWords.indexOf("Ksh. ") + 5));
+                totalPrice += priceToAdd;
+            }
+            console.log("TOTAL_ORDER_PRICE: " + totalPrice);
+            //get the initially saver price
+            showProgressDialog("Finishing up...Total cost: " + totalPrice + "...");
+            getBytes(ref(storage, "users/" + getCookie("uid") + "/orders/totalPrice")).then(
+                (bytes) => {
+                    var initialPrice = makeStringFromByteArray(bytes);
+                    console.log("INITIAL PRICE GOTTEN: " + initialPrice);
+                    totalPrice += Number(initialPrice);
+
+                    //now upload it
+                    uploadString(ref(storage, "users/" + getCookie("uid") + "/orders/totalPrice"), totalPrice.toString()).then(
+                        () => {
+                            console.log("PRICE UPLOADED SUCCESSFULLY!");
+                            //Hide the make orders button
+                            var makeOrderButton = document.getElementById("makeOrderButton");
+                            makeOrderButton.style.display = "none";
+                            //clear the orders
+                            cartProductsContainer.innerHTML = "";
+                            setCookie("orders", "");
+                            setCookie("ordersCount", "");
+                            //relocate
+                            window.location.href = "../index.html";
+                        }
+                    ).catch(
+                        (error) => {
+                            alert("Sorry, a problem ocurred!😭");
+                            console.log("Eror during uploading of total  price!");
+                            console.log(error);
+                        }
+                    )
+                }
+            ).catch(
+                error => {
+                    console.log("HMMMM, IT SEEMS INITIAL PRICE IS MISSING...");
+                    //proceed without adding anything to total price
+                    //now upload it
+                    uploadString(ref(storage, "users/" + getCookie("uid") + "/orders/totalPrice"), totalPrice.toString()).then(
+                        () => {
+                            console.log("PRICE UPLOADED SUCCESSFULLY!");
+                            //Hide the make orders button
+                            var makeOrderButton = document.getElementById("makeOrderButton");
+                            makeOrderButton.style.display = "none";
+                            //clear the orders
+                            cartProductsContainer.innerHTML = "";
+                            setCookie("orders", "");
+                            setCookie("ordersCount", "");
+                            //relocate
+                            window.location.href = "../index.html";
+                        }
+                    ).catch(
+                        (error) => {
+                            alert("Sorry, a problem ocurred!😭");
+                            console.log("Eror during uploading of total  price!");
+                            console.log(error);
+                        }
+                    )
+                }
+            )
         })
     }
 }
@@ -195,8 +252,9 @@ function uploadOrder(array, i, callBackFunction) {
     var orderedProductName = orderedProductDetailsArray[0];
     var orderedProductGender = orderedProductDetailsArray[1];
     var orderedProductGenre = orderedProductDetailsArray[2];
-    var orderedProductPrice = cartProductsContainer.children[i].children[4].innerText;
-    var orderedProductReference = ref(storage, "users/" + getCookie("uid") + "/orders/" + orderedProductName);
+    var orderedProductPrice = cartProductsContainer.children[i].children[4].innerText.substring(5);
+    var orderedProductUniqueName = orderedProductName + ";" + orderedProductGender + ";" + orderedProductGenre;
+    var orderedProductReference = ref(storage, "users/" + getCookie("uid") + "/orders/" + orderedProductUniqueName);
     //upload this product
     uploadString(ref(orderedProductReference, "name"), orderedProductName).then(
         snapshot => {
@@ -237,7 +295,7 @@ function uploadOrder(array, i, callBackFunction) {
                                                                         snapshot => {
                                                                             console.log("image file type uploaded!");
                                                                             //delete the original product
-                                                                            deleteDBFolder(originalProductReference, 0, 
+                                                                            deleteDBFolder(originalProductReference, 0,
                                                                                 () => {
                                                                                     console.log("old product deleted!");
                                                                                     console.log("Order finished...");
@@ -281,9 +339,9 @@ function deleteDBFolder(dbFolderRef, i, callBackFunction) {
             deleteObject(response.items[i]).then(
                 () => {
                     console.log("File [" + i + "] deleted!");
-                    if(i === response.items.length - 1) {
+                    if (i === response.items.length - 1) {
                         console.log("<<Folder deleted>>");
-                        if(callBackFunction) {
+                        if (callBackFunction) {
                             callBackFunction();
                         }
                     } else {

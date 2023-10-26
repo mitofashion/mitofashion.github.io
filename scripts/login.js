@@ -3,7 +3,7 @@
 var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
 //Redirect to mobile layout page if The aspect ratio is that of a mobile
-if (height / width < 1 ) {
+if (height / width < 1) {
     //set the value of the link
     document.getElementsByTagName("link")[0].setAttribute("href", "../css/rhoda.css");
 }
@@ -31,45 +31,45 @@ const storage = getStorage(app);
 var instance;
 
 function showProgressDialog(text) {
-	var state = 0;
-	
-	var stateOneText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateTwoText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateThreeText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
-	var stateFourText = "<b class=\"animTextWhite\">"+ text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
-	
-	var animationDiv = document.getElementById("animationDiv");
-	//set the text
-	animationDiv.children[0].children[0].innerText = text;
-	animationDiv.style.display = "table";
+    var state = 0;
 
-	instance = window.setInterval(() => {
-		if(state === 0) {
-			//display state zeero anim
-			animationDiv.children[0].innerHTML = stateOneText;
-			state += 1;
-		} else if(state === 1) {
-			//display state one text
-			animationDiv.children[0].innerHTML = stateTwoText;
-			state += 1;
-		} else if(state === 2) {
-			//displae stste 2 text
-			animationDiv.children[0].innerHTML = stateThreeText;
-			state += 1;
-		} else if(state === 3) {
-			//display state three text
-			animationDiv.children[0].innerHTML = stateFourText;
-			state = 0;
-		}
-	}, 200);
+    var stateOneText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateTwoText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateThreeText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b> <b class=\"animTextWhite\">&gt;</b>";
+    var stateFourText = "<b class=\"animTextWhite\">" + text + "   </b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animTextWhite\">&gt;</b> <b class=\"animationText\">&gt;</b>";
+
+    var animationDiv = document.getElementById("animationDiv");
+    //set the text
+    animationDiv.children[0].children[0].innerText = text;
+    animationDiv.style.display = "table";
+
+    instance = window.setInterval(() => {
+        if (state === 0) {
+            //display state zeero anim
+            animationDiv.children[0].innerHTML = stateOneText;
+            state += 1;
+        } else if (state === 1) {
+            //display state one text
+            animationDiv.children[0].innerHTML = stateTwoText;
+            state += 1;
+        } else if (state === 2) {
+            //displae stste 2 text
+            animationDiv.children[0].innerHTML = stateThreeText;
+            state += 1;
+        } else if (state === 3) {
+            //display state three text
+            animationDiv.children[0].innerHTML = stateFourText;
+            state = 0;
+        }
+    }, 200);
 }
 
 function hideProgressDialog() {
-	if(instance) {
-		window.clearInterval(instance);
-		var animationDiv = document.getElementById("animationDiv");
-		animationDiv.style.display = "none";
-	}
+    if (instance) {
+        window.clearInterval(instance);
+        var animationDiv = document.getElementById("animationDiv");
+        animationDiv.style.display = "none";
+    }
 }
 
 //references to views
@@ -82,7 +82,7 @@ loginButton.onclick = () => {
     var emailAddress = emailAddressInput.value
     var password = passwordInput.value;
 
-    if(!emailAddress || !password) {
+    if (!emailAddress || !password) {
         alert("All fields required please!");
         return;
     }
@@ -133,32 +133,524 @@ loginButton.onclick = () => {
                                             setCookie("phoneNumber", phoneNumber, 90);
                                             setCookie("username", username, 90);
                                             setCookie("rank", rank, 90);
+                                            setCookie("password", password, 90);
 
-                                            if(user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                            if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
                                                 window.location.href = "admin.html";
+                                                return;
                                             }
 
                                             //relocate to the home page now
                                             window.location.href = "../index.html";
                                         })
                                         .catch(error => {
-                                            console.log("Error occurred during emailAddress retrieval...");
+                                            console.log("emailAddress missing!");
                                             console.log(error);
+                                            if (error.status === 0) {
+                                                alert("Sorry, you will have to edit your email address!😭");
+                                                var emailAddress = "no email address";
+                                                console.log("Everything is here...");
+                                                console.log("emailAddress:" + emailAddress);
+                                                console.log("phoneNumber: " + phoneNumber);
+                                                console.log("username: " + username);
+                                                console.log("rank: " + rank);
+
+                                                //Now set the coookies
+                                                setCookie("uid", user.uid, 90);
+                                                setCookie("emailAddress", emailAddress, 90);
+                                                setCookie("phoneNumber", phoneNumber, 90);
+                                                setCookie("username", username, 90);
+                                                setCookie("rank", rank, 90);
+
+                                                if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                    window.location.href = "admin.html";
+                                                    return;
+                                                }
+
+                                                //relocate to the home page now
+                                                window.location.href = "../index.html";
+                                            }
                                         });
                                 })
                                 .catch(error => {
                                     console.log("Error occurred during phoneNumber retrieval...");
                                     console.log(error);
+                                    if (error.status === 0) {
+                                        alert("Sorry, you will have to edit your phone number!😭");
+                                        var phoneNumber = "no phone number";
+                                        //emailAddress
+                                        getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                            .then((bytes) => {
+                                                hideProgressDialog();
+                                                console.log("emailAddress retrieved successfully...");
+                                                emailAddress = makeStringFromByteArray(bytes);
+                                                //everything has been retrieved
+                                                console.log("Everything is here...");
+                                                console.log("emailAddress:" + emailAddress);
+                                                console.log("phoneNumber: " + phoneNumber);
+                                                console.log("username: " + username);
+                                                console.log("rank: " + rank);
+
+                                                //Now set the coookies
+                                                setCookie("uid", user.uid, 90);
+                                                setCookie("emailAddress", emailAddress, 90);
+                                                setCookie("phoneNumber", phoneNumber, 90);
+                                                setCookie("username", username, 90);
+                                                setCookie("rank", rank, 90);
+
+                                                if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                    window.location.href = "admin.html";
+                                                    return;
+                                                }
+
+                                                //relocate to the home page now
+                                                window.location.href = "../index.html";
+                                            })
+                                            .catch(error => {
+                                                console.log("emailAddress missing!");
+                                                console.log(error);
+                                                if (error.status === 0) {
+                                                    alert("Sorry, you will have to edit your email address!😭");
+                                                    var emailAddress = "no email address";
+                                                    console.log("Everything is here...");
+                                                    console.log("emailAddress:" + emailAddress);
+                                                    console.log("phoneNumber: " + phoneNumber);
+                                                    console.log("username: " + username);
+                                                    console.log("rank: " + rank);
+
+                                                    //Now set the coookies
+                                                    setCookie("uid", user.uid, 90);
+                                                    setCookie("emailAddress", emailAddress, 90);
+                                                    setCookie("phoneNumber", phoneNumber, 90);
+                                                    setCookie("username", username, 90);
+                                                    setCookie("rank", rank, 90);
+
+                                                    if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                        window.location.href = "admin.html";
+                                                        return;
+                                                    }
+
+                                                    //relocate to the home page now
+                                                    window.location.href = "../index.html";
+                                                }
+                                            });
+                                    }
                                 });
                         })
                         .catch(error => {
                             console.log("Error occurred during username retrieval...");
                             console.log(error);
+                            if (error.status === 0) {
+                                alert("Sorry, you will have to edit your username!😭");
+                                var username = "no username";
+                                //phoneNumber
+                                getBytes(ref(storage, "users/" + user.uid + "/phoneNumber"), 100)
+                                    .then((bytes) => {
+                                        console.log("phoneNumber retrieved successfully...");
+                                        phoneNumber = makeStringFromByteArray(bytes);
+
+                                        //emailAddress
+                                        getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                            .then((bytes) => {
+                                                hideProgressDialog();
+                                                console.log("emailAddress retrieved successfully...");
+                                                emailAddress = makeStringFromByteArray(bytes);
+                                                //everything has been retrieved
+                                                console.log("Everything is here...");
+                                                console.log("emailAddress:" + emailAddress);
+                                                console.log("phoneNumber: " + phoneNumber);
+                                                console.log("username: " + username);
+                                                console.log("rank: " + rank);
+
+                                                //Now set the coookies
+                                                setCookie("uid", user.uid, 90);
+                                                setCookie("emailAddress", emailAddress, 90);
+                                                setCookie("phoneNumber", phoneNumber, 90);
+                                                setCookie("username", username, 90);
+                                                setCookie("rank", rank, 90);
+
+                                                if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                    window.location.href = "admin.html";
+                                                    return;
+                                                }
+
+                                                //relocate to the home page now
+                                                window.location.href = "../index.html";
+                                            })
+                                            .catch(error => {
+                                                console.log("emailAddress missing!");
+                                                console.log(error);
+                                                if (error.status === 0) {
+                                                    alert("Sorry, you will have to edit your email address!😭");
+                                                    var emailAddress = "no email address";
+                                                    console.log("Everything is here...");
+                                                    console.log("emailAddress:" + emailAddress);
+                                                    console.log("phoneNumber: " + phoneNumber);
+                                                    console.log("username: " + username);
+                                                    console.log("rank: " + rank);
+
+                                                    //Now set the coookies
+                                                    setCookie("uid", user.uid, 90);
+                                                    setCookie("emailAddress", emailAddress, 90);
+                                                    setCookie("phoneNumber", phoneNumber, 90);
+                                                    setCookie("username", username, 90);
+                                                    setCookie("rank", rank, 90);
+
+                                                    if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                        window.location.href = "admin.html";
+                                                        return;
+                                                    }
+
+                                                    //relocate to the home page now
+                                                    window.location.href = "../index.html";
+                                                }
+                                            });
+                                    })
+                                    .catch(error => {
+                                        console.log("Error occurred during phoneNumber retrieval...");
+                                        console.log(error);
+                                        if (error.status === 0) {
+                                            alert("Sorry, you will have to edit your phone number!😭");
+                                            var phoneNumber = "no phone number";
+                                            //emailAddress
+                                            getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                                .then((bytes) => {
+                                                    hideProgressDialog();
+                                                    console.log("emailAddress retrieved successfully...");
+                                                    emailAddress = makeStringFromByteArray(bytes);
+                                                    //everything has been retrieved
+                                                    console.log("Everything is here...");
+                                                    console.log("emailAddress:" + emailAddress);
+                                                    console.log("phoneNumber: " + phoneNumber);
+                                                    console.log("username: " + username);
+                                                    console.log("rank: " + rank);
+
+                                                    //Now set the coookies
+                                                    setCookie("uid", user.uid, 90);
+                                                    setCookie("emailAddress", emailAddress, 90);
+                                                    setCookie("phoneNumber", phoneNumber, 90);
+                                                    setCookie("username", username, 90);
+                                                    setCookie("rank", rank, 90);
+
+                                                    if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                        window.location.href = "admin.html";
+                                                        return;
+                                                    }
+
+                                                    //relocate to the home page now
+                                                    window.location.href = "../index.html";
+                                                })
+                                                .catch(error => {
+                                                    console.log("emailAddress missing!");
+                                                    console.log(error);
+                                                    if (error.status === 0) {
+                                                        alert("Sorry, you will have to edit your email address!😭");
+                                                        var emailAddress = "no email address";
+                                                        console.log("Everything is here...");
+                                                        console.log("emailAddress:" + emailAddress);
+                                                        console.log("phoneNumber: " + phoneNumber);
+                                                        console.log("username: " + username);
+                                                        console.log("rank: " + rank);
+
+                                                        //Now set the coookies
+                                                        setCookie("uid", user.uid, 90);
+                                                        setCookie("emailAddress", emailAddress, 90);
+                                                        setCookie("phoneNumber", phoneNumber, 90);
+                                                        setCookie("username", username, 90);
+                                                        setCookie("rank", rank, 90);
+
+                                                        if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                            window.location.href = "admin.html";
+                                                            return;
+                                                        }
+
+                                                        //relocate to the home page now
+                                                        window.location.href = "../index.html";
+                                                    }
+                                                });
+                                        }
+                                    });
+                            }
                         });
                 })
                 .catch(error => {
-                    console.log("Error occurred during file retrieval...");
+                    console.log("Error occurred during rank retrieval...");
                     console.log(error);
+                    //write the rank in this case
+                    uploadString(ref(storage, "users/" + user.uid + "/rank"), "regularUser").then(
+                        snapshot => {
+                            //PROCEED WITH ACCOUNT DATA RETRIEVAL
+                            //username
+                            getBytes(ref(storage, "users/" + user.uid + "/username"), 100)
+                                .then((bytes) => {
+                                    console.log("username retrieved successfully...");
+                                    username = makeStringFromByteArray(bytes);
+
+                                    //phoneNumber
+                                    getBytes(ref(storage, "users/" + user.uid + "/phoneNumber"), 100)
+                                        .then((bytes) => {
+                                            console.log("phoneNumber retrieved successfully...");
+                                            phoneNumber = makeStringFromByteArray(bytes);
+
+                                            //emailAddress
+                                            getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                                .then((bytes) => {
+                                                    hideProgressDialog();
+                                                    console.log("emailAddress retrieved successfully...");
+                                                    emailAddress = makeStringFromByteArray(bytes);
+                                                    //everything has been retrieved
+                                                    console.log("Everything is here...");
+                                                    console.log("emailAddress:" + emailAddress);
+                                                    console.log("phoneNumber: " + phoneNumber);
+                                                    console.log("username: " + username);
+                                                    console.log("rank: " + rank);
+
+                                                    //Now set the coookies
+                                                    setCookie("uid", user.uid, 90);
+                                                    setCookie("emailAddress", emailAddress, 90);
+                                                    setCookie("phoneNumber", phoneNumber, 90);
+                                                    setCookie("username", username, 90);
+                                                    setCookie("rank", rank, 90);
+
+                                                    if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                        window.location.href = "admin.html";
+                                                        return;
+                                                    }
+
+                                                    //relocate to the home page now
+                                                    window.location.href = "../index.html";
+                                                })
+                                                .catch(error => {
+                                                    console.log("emailAddress missing!");
+                                                    console.log(error);
+                                                    if (error.status === 0) {
+                                                        alert("Sorry, you will have to edit your email address!😭");
+                                                        var emailAddress = "no email address";
+                                                        console.log("Everything is here...");
+                                                        console.log("emailAddress:" + emailAddress);
+                                                        console.log("phoneNumber: " + phoneNumber);
+                                                        console.log("username: " + username);
+                                                        console.log("rank: " + rank);
+
+                                                        //Now set the coookies
+                                                        setCookie("uid", user.uid, 90);
+                                                        setCookie("emailAddress", emailAddress, 90);
+                                                        setCookie("phoneNumber", phoneNumber, 90);
+                                                        setCookie("username", username, 90);
+                                                        setCookie("rank", rank, 90);
+
+                                                        if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                            window.location.href = "admin.html";
+                                                            return;
+                                                        }
+
+                                                        //relocate to the home page now
+                                                        window.location.href = "../index.html";
+                                                    }
+                                                });
+                                        })
+                                        .catch(error => {
+                                            console.log("Error occurred during phoneNumber retrieval...");
+                                            console.log(error);
+                                            if (error.status === 0) {
+                                                alert("Sorry, you will have to edit your phone number!😭");
+                                                var phoneNumber = "no phone number";
+                                                //emailAddress
+                                                getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                                    .then((bytes) => {
+                                                        hideProgressDialog();
+                                                        console.log("emailAddress retrieved successfully...");
+                                                        emailAddress = makeStringFromByteArray(bytes);
+                                                        //everything has been retrieved
+                                                        console.log("Everything is here...");
+                                                        console.log("emailAddress:" + emailAddress);
+                                                        console.log("phoneNumber: " + phoneNumber);
+                                                        console.log("username: " + username);
+                                                        console.log("rank: " + rank);
+
+                                                        //Now set the coookies
+                                                        setCookie("uid", user.uid, 90);
+                                                        setCookie("emailAddress", emailAddress, 90);
+                                                        setCookie("phoneNumber", phoneNumber, 90);
+                                                        setCookie("username", username, 90);
+                                                        setCookie("rank", rank, 90);
+
+                                                        if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                            window.location.href = "admin.html";
+                                                            return;
+                                                        }
+
+                                                        //relocate to the home page now
+                                                        window.location.href = "../index.html";
+                                                    })
+                                                    .catch(error => {
+                                                        console.log("emailAddress missing!");
+                                                        console.log(error);
+                                                        if (error.status === 0) {
+                                                            alert("Sorry, you will have to edit your email address!😭");
+                                                            var emailAddress = "no email address";
+                                                            console.log("Everything is here...");
+                                                            console.log("emailAddress:" + emailAddress);
+                                                            console.log("phoneNumber: " + phoneNumber);
+                                                            console.log("username: " + username);
+                                                            console.log("rank: " + rank);
+
+                                                            //Now set the coookies
+                                                            setCookie("uid", user.uid, 90);
+                                                            setCookie("emailAddress", emailAddress, 90);
+                                                            setCookie("phoneNumber", phoneNumber, 90);
+                                                            setCookie("username", username, 90);
+                                                            setCookie("rank", rank, 90);
+
+                                                            if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                                window.location.href = "admin.html";
+                                                                return;
+                                                            }
+
+                                                            //relocate to the home page now
+                                                            window.location.href = "../index.html";
+                                                        }
+                                                    });
+                                            }
+                                        });
+                                })
+                                .catch(error => {
+                                    console.log("Error occurred during username retrieval...");
+                                    console.log(error);
+                                    if (error.status === 0) {
+                                        alert("Sorry, you will have to edit your username!😭");
+                                        var username = "no username";
+                                        //phoneNumber
+                                        getBytes(ref(storage, "users/" + user.uid + "/phoneNumber"), 100)
+                                            .then((bytes) => {
+                                                console.log("phoneNumber retrieved successfully...");
+                                                phoneNumber = makeStringFromByteArray(bytes);
+
+                                                //emailAddress
+                                                getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                                    .then((bytes) => {
+                                                        hideProgressDialog();
+                                                        console.log("emailAddress retrieved successfully...");
+                                                        emailAddress = makeStringFromByteArray(bytes);
+                                                        //everything has been retrieved
+                                                        console.log("Everything is here...");
+                                                        console.log("emailAddress:" + emailAddress);
+                                                        console.log("phoneNumber: " + phoneNumber);
+                                                        console.log("username: " + username);
+                                                        console.log("rank: " + rank);
+
+                                                        //Now set the coookies
+                                                        setCookie("uid", user.uid, 90);
+                                                        setCookie("emailAddress", emailAddress, 90);
+                                                        setCookie("phoneNumber", phoneNumber, 90);
+                                                        setCookie("username", username, 90);
+                                                        setCookie("rank", rank, 90);
+
+                                                        if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                            window.location.href = "admin.html";
+                                                            return;
+                                                        }
+
+                                                        //relocate to the home page now
+                                                        window.location.href = "../index.html";
+                                                    })
+                                                    .catch(error => {
+                                                        console.log("emailAddress missing!");
+                                                        console.log(error);
+                                                        if (error.status === 0) {
+                                                            alert("Sorry, you will have to edit your email address!😭");
+                                                            var emailAddress = "no email address";
+                                                            console.log("Everything is here...");
+                                                            console.log("emailAddress:" + emailAddress);
+                                                            console.log("phoneNumber: " + phoneNumber);
+                                                            console.log("username: " + username);
+                                                            console.log("rank: " + rank);
+
+                                                            //Now set the coookies
+                                                            setCookie("uid", user.uid, 90);
+                                                            setCookie("emailAddress", emailAddress, 90);
+                                                            setCookie("phoneNumber", phoneNumber, 90);
+                                                            setCookie("username", username, 90);
+                                                            setCookie("rank", rank, 90);
+
+                                                            if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                                window.location.href = "admin.html";
+                                                                return;
+                                                            }
+
+                                                            //relocate to the home page now
+                                                            window.location.href = "../index.html";
+                                                        }
+                                                    });
+                                            })
+                                            .catch(error => {
+                                                console.log("Error occurred during phoneNumber retrieval...");
+                                                console.log(error);
+                                                if (error.status === 0) {
+                                                    alert("Sorry, you will have to edit your phone number!😭");
+                                                    var phoneNumber = "no phone number";
+                                                    //emailAddress
+                                                    getBytes(ref(storage, "users/" + user.uid + "/emailAddress"), 100)
+                                                        .then((bytes) => {
+                                                            hideProgressDialog();
+                                                            console.log("emailAddress retrieved successfully...");
+                                                            emailAddress = makeStringFromByteArray(bytes);
+                                                            //everything has been retrieved
+                                                            console.log("Everything is here...");
+                                                            console.log("emailAddress:" + emailAddress);
+                                                            console.log("phoneNumber: " + phoneNumber);
+                                                            console.log("username: " + username);
+                                                            console.log("rank: " + rank);
+
+                                                            //Now set the coookies
+                                                            setCookie("uid", user.uid, 90);
+                                                            setCookie("emailAddress", emailAddress, 90);
+                                                            setCookie("phoneNumber", phoneNumber, 90);
+                                                            setCookie("username", username, 90);
+                                                            setCookie("rank", rank, 90);
+
+                                                            if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                                window.location.href = "admin.html";
+                                                                return;
+                                                            }
+
+                                                            //relocate to the home page now
+                                                            window.location.href = "../index.html";
+                                                        })
+                                                        .catch(error => {
+                                                            console.log("emailAddress missing!");
+                                                            console.log(error);
+                                                            if (error.status === 0) {
+                                                                alert("Sorry, you will have to edit your email address!😭");
+                                                                var emailAddress = "no email address";
+                                                                console.log("Everything is here...");
+                                                                console.log("emailAddress:" + emailAddress);
+                                                                console.log("phoneNumber: " + phoneNumber);
+                                                                console.log("username: " + username);
+                                                                console.log("rank: " + rank);
+    
+                                                                //Now set the coookies
+                                                                setCookie("uid", user.uid, 90);
+                                                                setCookie("emailAddress", emailAddress, 90);
+                                                                setCookie("phoneNumber", phoneNumber, 90);
+                                                                setCookie("username", username, 90);
+                                                                setCookie("rank", rank, 90);
+    
+                                                                if (user.uid === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
+                                                                    window.location.href = "admin.html";
+                                                                    return;
+                                                                }
+    
+                                                                //relocate to the home page now
+                                                                window.location.href = "../index.html";
+                                                            }
+                                                        });
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                    )
                 });
             /*
        THE TEPLATE FOR DWNLOADING USING XML_HTTP_REQUEST
@@ -182,10 +674,15 @@ loginButton.onclick = () => {
         })
         .catch((error) => {
             hideProgressDialog();
-            alert("A problem ocurred during login!");
             console.log("A problem ocurred during account creation!");
             console.log("ERROR_CODE: " + error.code);
             console.log("ERROR_MESSSAGE: " + error.message);
+
+            if (error.code === "auth/invalid-login-credentials") {
+                alert("Please check your email address or password!");
+            } else if (error.code === "auth/network-request-failed") {
+                alert("Network error 😢");
+            }
         });
 }
 
