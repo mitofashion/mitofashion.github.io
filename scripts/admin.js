@@ -167,7 +167,6 @@ addButtonContainer.onclick = () => {
         var uploadButton = "<div class=\"tabsHeader\">\n";
         uploadButton += "       <div id=\"uploadButton\" class=\"tabButton\">UPLOAD</div>\n";
         uploadButton += "   </div>\n";
-        console.log("uploadButton: " + uploadButton);
         newProductsContainer.innerHTML += uploadButton;
 
         //get the element
@@ -25653,7 +25652,7 @@ function downloadProduct(productReferences, i, gender, genre, callBackFunction) 
                         url => {
                             var productElement = "";
                             //Now make the element
-                            productElement += "<div class=\"element\">";
+                            productElement += "<div id=\"" + productRef.name + "\" class=\"element\">";
                             productElement += "   <img src=\"" + url + "\"><br>";
                             productElement += "   <text>" + productRef.name + "</text><br>";
                             productElement += "   <b>Ksh. " + price + "</b><br>";
@@ -25672,7 +25671,10 @@ function downloadProduct(productReferences, i, gender, genre, callBackFunction) 
                                 //set all click listeners
                                 for (var j = 0; j < oldProductsContainer.children.length; j++) {
                                     oldProductsContainer.children[j].onclick = (event) => {
+                                        showProgressDialog("Deleting product...");
                                         deleteDBFolder(ref(storage, "products/" + event.target.getAttribute("genre") + "/" + event.target.getAttribute("gender") + "/" + event.target.getAttribute("name")), 0, () => {
+                                            oldProductsContainer.removeChild(document.getElementById(event.target.getAttribute("name")));
+                                            hideProgressDialog();
                                             console.log("Product deleted!");
                                         })
                                     }

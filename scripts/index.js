@@ -14,7 +14,7 @@ if (getCookie("uid") === "zkdaHBZFefRlRrYz4wGlrWLzhxN2") {
 
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, isSignInWithEmailLink, signInWithEmailLink } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
 import { getStorage, ref, getBytes, getDownloadURL, uploadBytes, uploadString } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -124,10 +124,10 @@ if (getCookie("emailAddress") && getCookie("uid")) {
                             handleCodeInApp: true,
                         };
 
-                        sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+                        sendEmailVerification(auth.currentUser)
                             .then(() => {
                                 hideProgressDialog();
-                                alert("Please verify your email address, an email was sent to you!😊");
+                                alert("An email was sent to you!😊");
                                 alert("Email might be in your spam folder!");
                                 console.log("Login email sent!");
                             })
@@ -283,15 +283,15 @@ if (getCookie("emailAddress") && getCookie("uid")) {
                             handleCodeInApp: true,
                         };
 
-                        sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+                        sendEmailVerification(auth.currentUser)
                             .then(() => {
                                 hideProgressDialog();
-                                alert("Please verify your email address, an email was sent to you!😊");
+                                alert("An email was sent to you!😊");
                                 console.log("Login email sent!");
                             })
                             .catch(error => {
                                 hideProgressDialog();
-                                alert("Sorry, something went wrong!😭");
+                                alert("Sorry, daily email limit exceeded!😭");
                                 console.log("Error during resending verification email...");
                                 console.log("error.code: " + error.code);
                                 console.log("error.message" + error.message);
@@ -465,15 +465,15 @@ if (getCookie("emailAddress") && getCookie("uid")) {
                                 handleCodeInApp: true,
                             };
     
-                            sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+                            sendEmailVerification(auth.currentUser)
                                 .then(() => {
                                     hideProgressDialog();
-                                    alert("Please verify your email address, an email was sent to you!😊");
+                                    alert("An email was sent to you!😊");
                                     console.log("Login email sent!");
                                 })
                                 .catch(error => {
                                     hideProgressDialog();
-                                    alert("Sorry, something went wrong!😭");
+                                    alert("Sorry, daily email limit exceeded!😭");
                                     console.log("Error during resending verification email...");
                                     console.log("error.code: " + error.code);
                                     console.log("error.message" + error.message);

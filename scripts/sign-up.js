@@ -10,7 +10,7 @@ if (height / width < 1) {
 
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, sendSignInLinkToEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
 import { getStorage, ref, uploadString, getDownloadURL, getBytes, uploadBytes } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -91,7 +91,7 @@ createAccountButton.onclick = () => {
 		//Details are valid, create the user in the database
 		showProgressDialog("Signing you up...");
 		createUserWithEmailAndPassword(auth, emailAddress, password)
-			.then(() => {
+			.then((userCredentials) => {
 
 				/*
 				SEND AN EMAIL VERIFICATION EMAIL TO THE USER
@@ -112,21 +112,25 @@ createAccountButton.onclick = () => {
 					handleCodeInApp: true,
 				};
 
-				sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+				sendEmailVerification(userCredentials.user)
 					.then(() => {
 						hideProgressDialog();
 						alert("Please check your email inbox for the verification email😊");
 						console.log("Verification email sent!");
+						window.location.href = "../index.html";
 					})
 
 					.catch(error => {
 						hideProgressDialog();
+						console.log("Error when sending verification email!");
+						console.log(error);
+						/*
 						alert("Sorry, daily email limit exceeded!😭");
 						//relocate to the index page
 						window.location.href = "../index.html";
 						console.log("Error during verification email sending...");
 						console.log("error.code: " + error.code);
-						console.log("error.message" + error.message);
+						console.log("error.message" + error.message);*/
 					})
 				console.log("Account created succssfully!");
 			})
