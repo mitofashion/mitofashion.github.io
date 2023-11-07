@@ -473,7 +473,7 @@ if (getCookie("emailAddress") && getCookie("uid")) {
                                 })
                                 .catch(error => {
                                     hideProgressDialog();
-                                    alert("Sorry, daily email limit exceeded!😭");
+                                    alert("Email address already sent!🥺");
                                     console.log("Error during resending verification email...");
                                     console.log("error.code: " + error.code);
                                     console.log("error.message" + error.message);

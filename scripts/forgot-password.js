@@ -10,8 +10,7 @@ if (height / width < 1) {
 
 // Import the functions you need from the SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
-import { getStorage, ref, uploadString, getDownloadURL, getBytes, uploadBytes } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-storage.js";
+import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.2.0/firebase-auth.js";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDigytCZDi5m8-GwuRobJcxii6LB9yiKWA",
@@ -80,15 +79,15 @@ submitEmailButton.onclick = () => {
         //send the signing email
 
         const actionCodeSettings = {
-            url: "https://mitofashion.github.io",
-            handleCodeInApp: true,
+            url: "https://mitofashion.github.io/html/login.html",
+            handleCodeInApp: true
         };
 
-        sendSignInLinkToEmail(auth, emailAddress, actionCodeSettings)
+        sendPasswordResetEmail(auth, emailAddress, actionCodeSettings)
             .then(() => {
                 hideProgressDialog();
-                alert("Please check your email inbox for login link😊");
-                alert("Please reset your password in the profile after loging in")
+                alert("Please check your email inbox for reset link😊");
+                alert("The email might be in your spam folder")
                 //relocate to the index page
                 console.log("Login email sent!");
             })
@@ -99,6 +98,8 @@ submitEmailButton.onclick = () => {
                 console.log("Error during login link email sending...");
                 console.log("error.code: " + error.code);
                 console.log("error.message" + error.message);
+				console.log("error...");
+				console.log(error);
             })
     } else {
 		alert("Email address is required😭");
