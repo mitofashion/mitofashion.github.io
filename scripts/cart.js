@@ -171,6 +171,7 @@ function makeOrders() {
     if (!(getCookie("uid") || getCookie("emailAddress"))) {
         alert("Sorry, you are not logged in!");
         window.location.href = "sign-up.html";
+        return;
     }
     ordersDSV = getCookie("orders");
     if (ordersDSV) {
