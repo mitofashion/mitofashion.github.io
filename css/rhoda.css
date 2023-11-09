@@ -5,6 +5,27 @@ html {
 	background-repeat: no-repeat;
 }
 
+
+/*Hide scrollbar*/
+body, html {
+    /*Preventing illegal scrollbar styling whatever...*/
+    scrollbar-face-color: ThreeDFace !important;
+    scrollbar-shadow-color: ThreeDDarkShadow !important;
+    scrollbar-highlight-color: ThreeDHighlight !important;
+    scrollbar-3dlight-color: ThreeDLightShadow !important;
+    scrollbar-darkshadow-color: ThreeDDarkShadow !important;
+    scrollbar-track-color: Scrollbar !important;
+    scrollbar-arrow-color: ButtonText !important;
+    /*Hiding the scrollbars on the html and body*/
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+/*Hiding the scrollbars on the html and body*/
+.body, html::-webkit-scrollbar {
+	display: none;
+}
+
+
 input[type="button"] {
 	font-family: fantasy;
 	background: transparent;
