@@ -43,12 +43,12 @@ table.centerTable {
 }
 
 .wordmarkLogo {
-	width: 40vw;
-	padding: 4vh;
+	height: 5vh;
+	padding: 2vh;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	padding-top: 6vh;
+	padding-top: 1vh;
 }
 
 .motto {
@@ -152,7 +152,7 @@ table.centerTable {
 
 .pageHeading {
 	color: #a8ebffff;
-	font-size: 4vh;
+	font-size: 2.7vh;
 	text-align: center;
 }
 
@@ -167,10 +167,10 @@ table.centerTable {
     color: #f0f;
     font-size: 3vh;
     display: flex;
-    width: 96%;
-    height: 84%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 94vw;
+    height: 56vh;
+	margin-left: auto;
+	margin-right: auto;
     border: solid 1px #f0f;
     border-radius: 2vh;
     text-align: left;
@@ -226,11 +226,11 @@ table.centerTable {
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
-	width:99vw;
+	width:92vw;
 	border: solid 1px #ff00ff;
 	border-radius: 2vh;
-	margin-top: 2vh;
-	margin-bottom: 6vh;
+	margin-top: 1vh;
+	margin-bottom: 2vh;
 }
 
 .tabButton {
